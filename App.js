@@ -5,6 +5,8 @@ import AuthScreen from './src/components/AuthScreen';
 import WelcomeScreen from './src/components/WelcomeScreen';
 import ChatScreen from './src/components/ChatScreen';
 import AllEventsScreen from './src/components/AllEventsScreen';
+import AddEventForm from './src/components/AddEventForm';
+import MyChatsScreen from './src/components/MyChatsScreen';
 
 
 export default class App extends React.Component {
@@ -15,7 +17,13 @@ export default class App extends React.Component {
       Main: {
         screen: TabNavigator({
           ChatScreen: { screen: ChatScreen },
-          AllEventsScreen: { screen: AllEventsScreen }
+          MyChatsScreen: { screen: MyChatsScreen },
+          Events: {
+            screen: StackNavigator({
+              AllEventsScreen: { screen: AllEventsScreen },
+              AddEventForm : { screen: AddEventForm }
+            })
+          }
         })
       }
     })
