@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { Image, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection } from './common';
 
 class CourtListItem extends Component {
 
-    // onRowPress() {
-    //     Actions.singleCourtView({ court: this.props.court });
-    // }
+    onRowPress() {
+        Actions.singleEvent({ court: this.props.court });
+    }
 
     render() {
 
         const { title, description, image, date } = this.props.event;
 
         return (
-            <TouchableWithoutFeedback >
+            <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
                 <View>
                     <Card>
                         <CardSection>
@@ -26,6 +27,9 @@ class CourtListItem extends Component {
                             <View style={styles.textContainer}>
                                 <Text style={styles.eventName}>{title}</Text>
                                 <Text>{description.slice(0, 85)}</Text>
+                            </View>
+                            <View style={styles.iconContainer}>
+                                <Icon name="chat" />
                             </View>
                         </CardSection>
                     </Card>
@@ -39,7 +43,7 @@ const styles = {
     textContainer: {
         flexDirection: 'column',
         justifyContent: 'space-around',
-        flex: .75
+        flex: .9
     },
     thumbnailStyle: {
         height: 50,
@@ -54,6 +58,9 @@ const styles = {
     eventName: {
         fontSize: 17,
         fontWeight: 'bold'
+    },
+    iconContainer: {
+        justifyContent: 'center'
     }
 }
 

@@ -2,6 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "dependencies": {
+    "@shoutem/cli": "^0.10.7",
     "expo": "^24.0.0",
     "firebase": "^4.8.2",
     "react": "16.0.0",

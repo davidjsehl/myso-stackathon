@@ -28,8 +28,6 @@ export class EventList extends Component {
     }
 
     render() {
-        console.log(this.props)
-        console.log('qdqwdcqedcqedcecc')
         return (
             <ListView 
                 enableEmptySections
