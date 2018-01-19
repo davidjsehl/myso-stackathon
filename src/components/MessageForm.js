@@ -13,7 +13,7 @@ export class MessageForm extends Component {
         this.state = {
             image: null
         }
-
+        
         this.handleMessageChange = this.handleMessageChange.bind(this);
         this.handleSendButtonSubmit = this.handleSendButtonSubmit.bind(this);
         this._pickImage = this._pickImage.bind(this);
@@ -24,7 +24,7 @@ export class MessageForm extends Component {
     }
 
     handleSendButtonSubmit() {
-        this.props.sendMessageThunk(this.props.message, (this.props.event.id - 1))
+        this.props.sendMessageThunk(this.props.message, (this.props.event.id))
     }
 
     _pickImage = async () => {

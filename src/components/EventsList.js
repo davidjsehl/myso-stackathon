@@ -43,7 +43,6 @@ export class EventList extends Component {
 
 
     render() {
-        console.log(firebase.auth().currentUser)
         return (
             <View>
                 <SearchBar

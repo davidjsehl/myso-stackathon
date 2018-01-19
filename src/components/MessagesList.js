@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 
-const MessagesList = (props) => {
-        // console.log(this.props.messages)
+class MessagesList extends Component  {
+    constructor (props) {
+        super(props)
+    }
         // const isCurrentUser = firebaseService.auth().currentUser.uid == this.props.message.user.id;
-        console.log(props.data)
-    return (
-        <View>
-           {
-               props.data.map(message => {
-                   return <Text>{message.text}</Text>
-               })
-           }
-        </View>
-    )
+
+    render() {
+
+        return (
+            <View>
+               {
+                   this.props.data.map(message => {
+                       return <Text key={message.id}>{message.text}</Text>
+                   })
+               }
+            </View>
+        )
+    }
 }
 
 const styles = {

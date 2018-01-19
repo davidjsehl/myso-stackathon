@@ -25,6 +25,10 @@ export const messageChanged = text => {
     }
 }
 
+export const fetchMessagesSuccess = (messages) => {
+    return { type: FETCH_MESSAGES_SUCCESS, messages }
+}
+
 //THUNKS
 
 export const sendMessageThunk = (message, eventId) => {
@@ -45,6 +49,7 @@ export const sendMessageThunk = (message, eventId) => {
                 dispatch({ type: CHAT_MESSAGE_FAIL, error })
             } else {
                 dispatch({ type: CHAT_MESSAGE_SUCCESS })
+                
             }
         })
     }
@@ -52,9 +57,9 @@ export const sendMessageThunk = (message, eventId) => {
 
 export const fetchEventMessagesThunk = (eventId) => {
     return (dispatch) => {
-        firebase.database().ref(`/events/${eventId}/messages`)
+        firebase.database().ref(`/events/${eventId}/messages`).limitToLast(20)
         .on('value', snapshot=> {
-            dispatch({ type: FETCH_MESSAGES_SUCCESS, payload: snapshot.val() })
+            dispatch(fetchMessagesSuccess(snapshot.val()))
         })
     }
 }
@@ -70,7 +75,7 @@ export default (state = initialState, action) => {
         case CHAT_MESSAGE_FAIL:
             return { ...state, sendingError: action.error }
         case FETCH_MESSAGES_SUCCESS:
-            return { ...state, sendingError: null, messages: action.payload }
+            return { ...state, sendingError: null, messages: action.messages }
         default:
             return state;
     }

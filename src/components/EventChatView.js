@@ -14,14 +14,16 @@ class EventChatView extends Component {
     }
 
     render() {
-        const { title, description, location, date, time, image, messages } = this.props.event;
+        const {messages} = this.props;
+        const { title, description, location, date, time, image } = this.props.event;        
         const data = getChatMessages(messages).reverse();
         return (
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior='padding'
-                keyboardVerticalOffset={64}>
-
+                keyboardVerticalOffset={64}
+                >   
+                <Text>{title}</Text>
                 <MessagesList data={data} />
                 <MessageForm event={this.props.event} />
             </KeyboardAvoidingView>
