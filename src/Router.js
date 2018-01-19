@@ -16,7 +16,7 @@ const RouterComponent = () => {
                         component={LoginForm}
                         title="Please Log In"
                         initial
-                    />
+                        />
                 </Scene>
 
                 <Scene key="main">
@@ -27,22 +27,22 @@ const RouterComponent = () => {
                         rightTitle="Add Event"
                         onRight={() => Actions.addEventForm()}
                         initial
-                    />
+                        />
                     <Scene
                         key="addEventForm"
                         component={AddEventForm}
                         title="Add Event"
-                    />
+                        />
                     <Scene 
                         key="singleEvent"
                         component={SingleEvent}
                         title="Event"
-                    />
+                        />
                     <Scene
                         key="eventChatView"
                         component={EventChatView}
                         title="Single Court"
-                    />
+                        />
                 </Scene>
             </Scene>
         </Router>

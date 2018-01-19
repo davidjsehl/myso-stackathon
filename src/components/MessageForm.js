@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image, View, TextInput, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import ImagePicker from 'react-native-image-picker';
-import { updateMessage, sendMessageThunk } from '../reducers/chatReducer';
+import { ImagePicker } from 'expo';
+import { messageChanged, sendMessageThunk } from '../reducers/chatReducer';
 
 
-class MessageForm extends Component {
+export class MessageForm extends Component {
     
     constructor(props) {
         super(props);
+
+        this.state = {
+            image: null
+        }
+
+        this.handleMessageChange = this.handleMessageChange.bind(this);
+        this.handleSendButtonSubmit = this.handleSendButtonSubmit.bind(this);
+        this._pickImage = this._pickImage.bind(this);
     }
 
-    handleMessageChange (message) {
-        this.props.updateMessage(message)
+    handleMessageChange (text) {
+        this.props.messageChanged(text)
     }
 
     handleSendButtonSubmit() {
-        this.props.sendMessageThunk(this.props.message, this.props.event.id)
+        this.props.sendMessageThunk(this.props.message, (this.props.event.id - 1))
+    }
+
+    _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3]
+        });
+        if (!result.cancelled) {
+            this.setState({ image: result.uri })
+        }
     }
             
     render () {
-        console.log(this.props.event.id)
         return (
             <View style={styles.container}>
                 <TextInput
@@ -28,25 +45,26 @@ class MessageForm extends Component {
                     placeholder="Message"
                     returnKeyType='send'
                     underlineColorAndroid={'transparent'}
+                    value={this.props.message}
+                    onChangeText={this.handleMessageChange}
                     />
 
                 <TouchableOpacity
                     style={styles.button}
+                    onPress={this.handleSendButtonSubmit}
                     >
-                <Image style={styles.sendImageStyle}
-                    source={require('../../public/send-icon.png')}
-                    />
+                    <Image style={styles.sendImageStyle}
+                        source={require('../../public/send-icon.png')}
+                        />
                 </TouchableOpacity>
                 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this._pickImage()}
-                    // onPress={this.handleButtonPress}
-                    // disabled={isButtonDisabled}
+                    onPress={this._pickImage}
                     >
-                <Image style={styles.cameraImageStyle}
-                    source={require('../../public/camera.png')}
-                    />
+                    <Image style={styles.cameraImageStyle}
+                        source={require('../../public/camera.png')}
+                        />
                 </TouchableOpacity>
             </View>
         );
@@ -90,6 +108,15 @@ const styles = {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        message: state.chat.message
+    }
+}
+
+const MessageFormContainer = connect(mapStateToProps, { messageChanged, sendMessageThunk })(MessageForm);
+export default MessageFormContainer;
+
 
 
 
@@ -128,4 +155,3 @@ const styles = {
 //             })
 //     })
 // }
-export default MessageForm;

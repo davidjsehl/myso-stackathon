@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView } from 'react-native';
-
-// import MessagesList from './MessagesList';
+import { connect } from 'react-redux';
+import MessagesList from './MessagesList';
 import MessageForm from './MessageForm';
+import { fetchEventMessagesThunk } from '../reducers/chatReducer';
+import { getChatMessages } from '../utils';
+
 
 class EventChatView extends Component {
+
+    componentDidMount() {
+        this.props.fetchEventMessagesThunk(this.props.event.id);
+    }
+
     render() {
-        const { title, description, location, date, time, image } = this.props.event;
+        const { title, description, location, date, time, image, messages } = this.props.event;
+        const data = getChatMessages(messages).reverse();
         return (
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior='padding'
                 keyboardVerticalOffset={64}>
 
-                {/* <MessagesList /> */}
+                <MessagesList data={data} />
                 <MessageForm event={this.props.event} />
             </KeyboardAvoidingView>
         )
@@ -29,4 +38,11 @@ const styles = {
     }
 }
 
-export default EventChatView;
+const mappStateToProps = (state) => {
+    return {
+        messages: state.chat.messages
+    }
+}
+
+const EventChatViewContainer = connect(mappStateToProps, { fetchEventMessagesThunk })(EventChatView);
+export default EventChatViewContainer;

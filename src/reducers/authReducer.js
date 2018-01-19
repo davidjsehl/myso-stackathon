@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
 
 //INITIAL STATE
 
@@ -48,7 +49,6 @@ const loginUserFail = (dispatch, user) => {
 
 //THUNKS
 
-
 export const loginUserThunk = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER_START })
@@ -63,6 +63,7 @@ export const loginUserThunk = ({ email, password }) => {
             })
     }
 }
+
 // export const loginUserThunk = ({ email, password }) => async dispatch => {
 //     dispatch({ type: LOGIN_USER_START })
 //     let user = await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -102,27 +103,31 @@ export default (state = initialState, action) => {
     }
 }
 
-
-// import { AsyncStorage } from 'react-native';
-// import { Facebook } from 'expo';
-
-// //ACTION TYPES
-
-// const FACEBOOK_LOGIN_SUCCESS = 'FACEBOOK_LOGIN_SUCCESS';
-// const FACEBOOK_LOGIN_FAIL = 'FACEBOOK_LOGIN_FAIL';
-
-
-// //ACTION CREATOR
-
-// //THUNKS
-
-// export const facebookLoginThunk = () => async dispatch => {
-//     let userToken = await AsyncStorage.getItem('user_fb_token');
+// export const loginUserThunk = () => async dispatch => {
+//     let userToken = await AsyncStorage.getItem('user-token');
 //     //if there is a token for this user in storage
 //     if (userToken) {
-//         dispatch({ type: FACEBOOK_LOGIN_SUCCESS, userToken })
+//         dispatch({ type: LOGIN_USER_SUCCESS, userToken })
 //     } else {
-//         intitiateFacebookLogin(dispatch)
+//         intitiateUserLogin(dispatch)
+//     }
+// }
+
+// const initiateUserLogin = async dispatch => {
+//     dispatch({ type: LOGIN_USER_START })
+//     try {
+//         let user = firebase.auth().signInWithEmailAndPassword(email, password)
+//         if (user) {
+//             await AsyncStorage.setItem('user-token', user.accessToken);
+//             loginUserSuccess(dispatch, user);
+
+//         } else {
+//             let user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+//             loginUserSuccess(dispatch, user);
+//             await AsyncStorage.setItem('user-token', user.accessToken);
+//         }
+//     } catch (error) {
+//         console.log(error)
 //     }
 // }
 

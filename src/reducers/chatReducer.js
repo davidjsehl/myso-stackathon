@@ -1,14 +1,15 @@
-// //ACTION TYPES
+import firebase from 'firebase';
+
+//ACTION TYPES
 
 
 const CHAT_MESSAGE_SUCCESS = 'CHAT_MESSAGE_SUCCESS';
 const CHAT_MESSAGE_FAIL = 'CHAT_MESSAGE_FAIL';
-const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
+const MESSAGE_CHANGED = 'MESSAGE_CHANGED';
 const FETCH_MESSAGES_SUCCESS = 'FETCH_MESSAGES_SUCCESS';
 const FETCH_MESSAGES_FAIL = 'FETCH_MESSAGES_FAIL';
 
-
-// //INITIAL STATE 
+//INITIAL STATE 
 
 const initialState = {
     message: '',
@@ -16,24 +17,15 @@ const initialState = {
     sendError: null
 };
 
+//ACTION CREATORS
 
-// //ACTION CREATORS
-
-export const updateMessage = text => {
+export const messageChanged = text => {
     return (dispatch) => {
-        dispatch({ type: UPDATE_MESSAGE, text })
+        dispatch({ type: MESSAGE_CHANGED, text })
     }
 }
 
-
-// //THUNKS
-
-// export const fetchMessagesThunk = (event) => {
-//     return 
-// }
-
-
-
+//THUNKS
 
 export const sendMessageThunk = (message, eventId) => {
     return (dispatch) => {
@@ -58,16 +50,27 @@ export const sendMessageThunk = (message, eventId) => {
     }
 }
 
+export const fetchEventMessagesThunk = (eventId) => {
+    return (dispatch) => {
+        firebase.database().ref(`/events/${eventId}/messages`)
+        .on('value', snapshot=> {
+            dispatch({ type: FETCH_MESSAGES_SUCCESS, payload: snapshot.val() })
+        })
+    }
+}
+
 //REDUCER
 
 export default (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_MESSAGE:
+        case MESSAGE_CHANGED:
             return { ...state, message: action.text, sendingError: null }
         case CHAT_MESSAGE_SUCCESS:
             return { ...state, sendingError: null, message: '' }
         case CHAT_MESSAGE_FAIL:
             return { ...state, sendingError: action.error }
+        case FETCH_MESSAGES_SUCCESS:
+            return { ...state, sendingError: null, messages: action.payload }
         default:
             return state;
     }

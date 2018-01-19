@@ -9,6 +9,14 @@ import firebase from 'firebase';
 
 export class EventList extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            searchTerm: ''
+        }
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+    }
+
     componentWillMount() {
         this.props.getEventsThunk();
         this.createDataSource(this.props);
@@ -29,13 +37,21 @@ export class EventList extends Component {
         return <EventListItem event={event} />
     }
 
+    handleSearchChange(value) {
+        this.setState({ searchTerm: value })
+    }
+
+
     render() {
+        console.log(firebase.auth().currentUser)
         return (
             <View>
                 <SearchBar
                     placeholder='Type Here...'  
                     placeholderTextColor="white"
                     inputStyle={{ color: "white" }}
+                    value={this.state.searchTerm}
+                    onChangeText={this.handleSearchChange}
                 />
                 <ListView 
                     enableEmptySections

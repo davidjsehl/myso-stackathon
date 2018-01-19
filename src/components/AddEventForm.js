@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, DatePickerIOS } from 'react-native';
+import { View, Text, DatePickerIOS, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { InputField, Card, CardSection, Button } from './common';
 
 class AddEventForm extends Component {
@@ -19,40 +19,42 @@ class AddEventForm extends Component {
 
     render() {
         return (
-            <Card>
-                <CardSection>          
-                    <InputField 
-                        placeholder="Event Title"     
+            <ScrollView>
+                <Card>
+                    <CardSection>          
+                        <InputField 
+                            placeholder="Event Title"     
+                        />
+                    </CardSection>
+                        
+                    <CardSection>          
+                        <InputField style={{ paddingLeft: 5 }}
+                            placeholder="Description"     
+                        />
+                    </CardSection>
+
+                    <CardSection>          
+                        <InputField 
+                            placeholder="Location"     
+                        />
+                    </CardSection>
+
+                    <CardSection style={{ justifyContent: 'center' }}>
+                        <Text style={styles.pickerLabelStyle}>Select Date and Time</Text>
+                    </CardSection>
+
+                    <DatePickerIOS 
+                        date={this.state.chosenDate}
+                        onDateChange={this.setDate}
                     />
-                </CardSection>
 
-                <CardSection>          
-                    <InputField style={{ paddingLeft: 5 }}
-                        placeholder="Description"     
-                    />
-                </CardSection>
-
-                <CardSection>          
-                    <InputField 
-                        placeholder="Location"     
-                    />
-                </CardSection>
-
-                <CardSection style={{ justifyContent: 'center' }}>
-                    <Text style={styles.pickerLabelStyle}>Select Date and Time</Text>
-                </CardSection>
-
-                <DatePickerIOS 
-                    date={this.state.chosenDate}
-                    onDateChange={this.setDate}
-                />
-
-                <CardSection>
-                    <Button>
-                        Add Event
-                    </Button>
-                </CardSection>
-            </Card>
+                    <CardSection>
+                        <Button>
+                            Add Event
+                        </Button>
+                    </CardSection>
+                </Card>
+            </ScrollView>
         )
     }
 }
@@ -64,6 +66,8 @@ const styles = {
         fontSize: 18
     }
 }
+
+export default AddEventForm;
 
 // const styles = {
 //     container: {
@@ -94,5 +98,3 @@ const styles = {
 //     }
 // };
 
-
-export default AddEventForm;

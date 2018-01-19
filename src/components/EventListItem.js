@@ -29,7 +29,7 @@ class EventListItem extends Component {
                                 <Text>{description.slice(0, 85)}</Text>
                             </View>
                             <View style={styles.iconContainer}>
-                                <Icon name="chat" />
+                                <Icon name="keyboard-arrow-right" />
                             </View>
                         </CardSection>
                     </Card>

@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@shoutem/cli": "^0.10.7",
+    "aurora-imui-react-native": "^0.6.9",
     "expo": "^24.0.0",
     "firebase": "^4.8.2",
     "react": "16.0.0",
@@ -12,6 +13,7 @@
     "react-native-gifted-chat": "^0.3.0",
     "react-native-image-picker": "^0.26.7",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-search-list": "^0.1.0",
     "react-navigation": "^1.0.0-beta.27",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
