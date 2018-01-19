@@ -4,7 +4,7 @@ import LoginForm from './components/LoginForm';
 import EventList from './components/EventsList';
 import AddEventForm from './components/AddEventForm';
 import SingleEvent from './components/SingleEvent';
-import ChatView from './components/ChatView';
+import EventChatView from './components/EventChatView';
 
 const RouterComponent = () => {
     return (
@@ -29,11 +29,6 @@ const RouterComponent = () => {
                         initial
                     />
                     <Scene
-                        key="chatView"
-                        component={ChatView}
-                        title="Single Court"
-                    />
-                    <Scene
                         key="addEventForm"
                         component={AddEventForm}
                         title="Add Event"
@@ -42,6 +37,11 @@ const RouterComponent = () => {
                         key="singleEvent"
                         component={SingleEvent}
                         title="Event"
+                    />
+                    <Scene
+                        key="eventChatView"
+                        component={EventChatView}
+                        title="Single Court"
                     />
                 </Scene>
             </Scene>

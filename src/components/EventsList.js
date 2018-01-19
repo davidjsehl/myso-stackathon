@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, ListView } from 'react-native';
 import { Card, CardSection } from './common';
+import { SearchBar } from 'react-native-elements';
 import EventListItem from './EventListItem';
 import { getEventsThunk } from '../reducers/eventReducer';
+import firebase from 'firebase';
 
 export class EventList extends Component {
 
@@ -29,11 +31,18 @@ export class EventList extends Component {
 
     render() {
         return (
-            <ListView 
-                enableEmptySections
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-            />
+            <View>
+                <SearchBar
+                    placeholder='Type Here...'  
+                    placeholderTextColor="white"
+                    inputStyle={{ color: "white" }}
+                />
+                <ListView 
+                    enableEmptySections
+                    dataSource={this.dataSource}
+                    renderRow={this.renderRow}
+                />
+            </View>
         )
     }
 }

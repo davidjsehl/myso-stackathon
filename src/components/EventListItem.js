@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Image, Text, View, TouchableWithoutFeedback } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, SearchBar } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection } from './common';
 
-class CourtListItem extends Component {
+class EventListItem extends Component {
 
     onRowPress() {
-        Actions.singleEvent({ court: this.props.court });
+        Actions.singleEvent({ event: this.props.event });
     }
 
     render() {
@@ -64,4 +64,4 @@ const styles = {
     }
 }
 
-export default CourtListItem;
+export default EventListItem;

@@ -27,6 +27,7 @@ export default class App extends React.Component {
       messagingSenderId: "601069676391"
     };
     firebase.initializeApp(config);
+    const storage = firebase.storage();
   }
 
   render() {

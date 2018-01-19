@@ -10,11 +10,12 @@ const ADD_EVENT = 'ADD_EVENT';
 
 const initialState = {};
 
+
+
 //THUNKS
 
 export const getEventsThunk = () => {
     return (dispatch) => {
-        console.log('wqonecoenqcoenocnoecnoe2cnoecin')
         firebase.database().ref('/events')
         .on('value', snapshot => {
             dispatch({ type: GET_EVENTS, payload: snapshot.val() })
